@@ -1,0 +1,196 @@
+﻿
+@{
+    ViewBag.Title = "AddDocGia";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@model THUVIEN_CNPMNC_TH.Models.DocGia
+
+<link href="~/Areas/Admin/Content/css/DocGia/AddDG.css" rel="stylesheet" />
+
+<div class="container">
+    <h1>THÊM ĐỘC GIẢ </h1>
+    @using (Html.BeginForm("SaveAdd", "DocGia", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            @Html.LabelFor(model => model.TenDocGia, "Tên độc giả:", htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.TenDocGia, new { htmlAttributes = new { @class = "form-control" } })
+            <span id="tenDocGiaError" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NgaySinh, "Ngày sinh:", htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+            <span id="ngaySinhError" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.GioiTinh, "Giới tính:", htmlAttributes: new { @class = "control-label" })
+            @Html.DropDownListFor(model => model.GioiTinh, new List<SelectListItem>
+            {
+                new SelectListItem { Text = "Nam", Value = "Nam" },
+                new SelectListItem { Text = "Nữ", Value = "Nữ" }
+            }, "Chọn giới tính", new { @class = "form-control", id = "gioiTinhSelect" })
+            <span id="gioiTinhError" class="text-danger"></span>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DiaChi, "Địa chỉ:", htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control" } })
+            <span id="diaChiError" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, "Email:", htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+            <span id="emailError" class="text-danger"></span>
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SoDienThoai, "Số điện thoại:", htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.SoDienThoai, new { htmlAttributes = new { @class = "form-control", placeholder = "0xxxxxxxxx" } })
+            <span id="soDienThoaiError" class="text-danger"></span>
+            @Html.ValidationMessageFor(model => model.SoDienThoai, "", new { @class = "text-danger" })
+        </div>
+
+
+        <input type="submit" value="Thêm" class="btn btn-primary" />
+    }
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+$(document).ready(function () {
+    $("form").submit(function (event) {
+        var isValid = true;
+
+        // Kiểm tra Tên độc giả
+        
+        var tenDocGiaValue = $("#TenDocGia").val().trim();
+        if (tenDocGiaValue === "") {
+            $("#tenDocGiaError").text("Vui lòng nhập Tên độc giả.").show();
+            isValid = false;
+        } else if (!isNaN(tenDocGiaValue)) {
+            $("#tenDocGiaError").text("Tên độc giả không thể là số.").show();
+            isValid = false;
+        } else if (/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/.test(tenDocGiaValue)) {
+            $("#tenDocGiaError").text("Tên độc giả không thể có kí tự đặc biệt hoặc số.").show();
+            isValid = false;
+        } else {
+            $("#tenDocGiaError").text("").hide(); // Ẩn thông báo lỗi nếu không có lỗi
+        }
+
+        // Kiểm tra Ngày sinh
+        var ngaySinhValue = $("#NgaySinh").val().trim();
+        if (ngaySinhValue === "") {
+            $("#ngaySinhError").text("Vui lòng nhập Ngày sinh.").show();
+            isValid = false;
+        } else {
+            var ngaySinh = new Date(ngaySinhValue);
+            var ngayHienTai = new Date();
+            var age = ngayHienTai.getFullYear() - ngaySinh.getFullYear();
+            var monthDiff = ngayHienTai.getMonth() - ngaySinh.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && ngayHienTai.getDate() < ngaySinh.getDate())) {
+                age--;
+            }
+            if (age < 12) {
+                $("#ngaySinhError").text("Độc giả phải từ 12 tuổi trở lên.").show(); // Thêm .show() để hiển thị thông báo lỗi
+                isValid = false;
+            } else {
+                $("#ngaySinhError").text("").hide(); // Ẩn thông báo lỗi nếu không có lỗi
+            }
+        }
+
+
+        // Kiểm tra Giới tính
+        $("form").submit(function (event) {
+            var isValid = true;
+
+            // Kiểm tra Giới tính
+            var gioiTinhValue = $("#gioiTinhSelect").val().trim();
+            if (gioiTinhValue === "") {
+                $("#gioiTinhError").text("Vui lòng chọn giới tính.").show();
+                isValid = false;
+            } else {
+                $("#gioiTinhError").text("").hide(); // Ẩn thông báo lỗi nếu không có lỗi
+            }
+
+            if (!isValid) {
+                event.preventDefault(); // Ngăn chặn việc gửi biểu mẫu nếu có lỗi
+            }
+        });
+
+
+        // Kiểm tra Địa chỉ
+        var diaChiValue = $("#DiaChi").val().trim();
+        if (diaChiValue === "") {
+            $("#diaChiError").text("Vui lòng nhập Địa chỉ.").show();
+            isValid = false;
+        } else {
+            $("#diaChiError").text("").hide(); // Ẩn thông báo lỗi nếu không có lỗi
+        }
+
+        // Kiểm tra Email
+        var emailValue = $("#Email").val().trim();
+        if (emailValue === "" || !emailValue.endsWith("@@gmail.com")) {
+            $("#emailError").text("Vui lòng nhập Email đúng định dạng.").show();
+            isValid = false;
+        } else {
+            $("#emailError").text("").hide(); // Ẩn thông báo lỗi nếu không có lỗi
+        }
+
+        // Kiểm tra Số điện thoại
+        $("form").submit(function (event) {
+            var isValid = true;
+
+            // Kiểm tra Số điện thoại
+            var soDienThoaiValue = $("#SoDienThoai").val().trim();
+            if (soDienThoaiValue === "" || isNaN(soDienThoaiValue) || soDienThoaiValue.length !== 10 || soDienThoaiValue[0] !== "0") {
+                $("#soDienThoaiError").text("Vui lòng nhập Số điện thoại hợp lệ.").show();
+                isValid = false;
+            } else {
+                $("#soDienThoaiError").text("").hide(); // Ẩn thông báo lỗi nếu không có lỗi
+            }
+
+            if (!isValid) {
+                event.preventDefault(); // Ngăn chặn việc gửi biểu mẫu nếu có lỗi
+            }
+        });
+
+
+        if (!isValid) {
+            event.preventDefault(); // Ngăn chặn việc gửi biểu mẫu nếu có lỗi
+        }
+    });
+});
+
+</script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var ngayMuonInput = document.getElementById("NgayMuon");
+        var ngayTraDuKienInput = document.getElementById("NgayTraDuKien");
+
+        ngayTraDuKienInput.addEventListener("change", function () {
+            var ngayMuon = new Date(ngayMuonInput.value);
+            var ngayTraDuKien = new Date(ngayTraDuKienInput.value);
+            var differenceInDays = (ngayTraDuKien - ngayMuon) / (1000 * 60 * 60 * 24);
+            var ngayTraDuKienErrorSpan = document.getElementById("ngayTraDuKienError");
+
+            if (differenceInDays > 15) {
+                ngayTraDuKienErrorSpan.textContent = "Ngày trả dự kiến không được vượt quá 15 ngày so với ngày mượn.";
+                ngayTraDuKienErrorSpan.style.color = "red"; // Thiết lập màu chữ là đỏ
+                ngayTraDuKienInput.value = "";
+            } else {
+                ngayTraDuKienErrorSpan.textContent = "";
+            }
+        });
+    });
+
+</script>

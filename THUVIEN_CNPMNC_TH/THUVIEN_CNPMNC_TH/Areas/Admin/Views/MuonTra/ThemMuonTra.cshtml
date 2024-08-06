@@ -1,0 +1,142 @@
+﻿@model THUVIEN_CNPMNC_TH.Models.PhieuMuonTra
+
+@{
+    ViewBag.Title = "ThemMuonTra";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>THÊM PHIẾU MƯỢN TRẢ SÁCH</h1>
+<link href="~/Areas/Admin/Content/css/MuonTra/ThemMuonTra.css" rel="stylesheet" />
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.Label("Tên sách:", htmlAttributes: new { @class = "control-label col-md-10" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.MaSach, ViewBag.TenSach as SelectList, "-- Chọn tên sách --", new { @class = "form-control", id = "TenSachDropdown" })
+                <span id="tenSachError" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Tên độc giả:", htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.MaDocGia, ViewBag.TenDocGia as SelectList, "-- Chọn tên độc giả --", new { @class = "form-control", id = "TenDocGiaDropdown" })
+                <span id="tenDocGiaError" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Tên thủ thư:", htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.MaThuThu, ViewBag.TenThuThu as SelectList, "-- Chọn tên thủ thư --", new { @class = "form-control", id = "TenThuThuDropdown" })
+                <span id="tenThuThuError" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.LabelFor(model => model.NgayMuon, "Ngày Mượn:", htmlAttributes: new { @class = "control-label col-md-4" })
+                @Html.TextBoxFor(model => model.NgayMuon, new { @class = "form-control", @type = "date", id = "NgayMuon" })
+                <span id="ngayMuonError" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.LabelFor(model => model.NgayTraDuKien, "Ngày Trả Dự Kiến:", htmlAttributes: new { @class = "control-label col-md-10" })
+                @Html.TextBoxFor(model => model.NgayTraDuKien, new { @class = "form-control", @type = "date", id = "NgayTraDuKien" })
+                <span id="ngayTraDuKienError" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "QLMuonTra")
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("form").submit(function (event) {
+            var isValid = true;
+
+            // Kiểm tra Tên sách
+            if ($("#TenSachDropdown").val() === "") {
+                $("#tenSachError").text("Vui lòng chọn Tên sách.").show();
+                isValid = false;
+            } else {
+                $("#tenSachError").text("").hide();
+            }
+
+            // Kiểm tra Tên độc giả
+            if ($("#TenDocGiaDropdown").val() === "") {
+                $("#tenDocGiaError").text("Vui lòng chọn Tên độc giả.").show();
+                isValid = false;
+            } else {
+                $("#tenDocGiaError").text("").hide();
+            }
+
+            // Kiểm tra Tên thủ thư
+            if ($("#TenThuThuDropdown").val() === "") {
+                $("#tenThuThuError").text("Vui lòng chọn Tên thủ thư.").show();
+                isValid = false;
+            } else {
+                $("#tenThuThuError").text("").hide();
+            }
+
+            // Kiểm tra Ngày mượn
+            if ($("#NgayMuon").val() === "") {
+                $("#ngayMuonError").text("Vui lòng chọn Ngày mượn.").show();
+                isValid = false;
+            } else {
+                $("#ngayMuonError").text("").hide();
+            }
+
+            // Kiểm tra Ngày trả dự kiến
+            var ngayTraDuKien = $("#NgayTraDuKien").val();
+            if (ngayTraDuKien === "") {
+                $("#ngayTraDuKienError").text("Vui lòng chọn Ngày trả dự kiến.").show();
+                isValid = false;
+            } else {
+                $("#ngayTraDuKienError").text("").hide();
+
+                var ngayMuon = $("#NgayMuon").val();
+                var ngayTraDuKienDate = new Date(ngayTraDuKien);
+                var ngayMuonDate = new Date(ngayMuon);
+                var diffInDays = (ngayTraDuKienDate - ngayMuonDate) / (1000 * 60 * 60 * 24);
+
+                if (ngayTraDuKienDate < ngayMuonDate) {
+                    $("#ngayTraDuKienError").text("Vui lòng chọn Ngày trả dự kiến lớn hơn Ngày mượn.").show();
+                    isValid = false;
+                } else if (diffInDays > 15) {
+                    $("#ngayTraDuKienError").text("Vui lòng chọn Ngày trả dự kiến không lớn hơn Ngày mượn 15 ngày.").show();
+                    isValid = false;
+                }
+            }
+
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    });
+
+</script>

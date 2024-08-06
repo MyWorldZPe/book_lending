@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0ebdd65434a244c0afc795f74e6d2499" Name="Diagram1">
+        <EntityTypeShape EntityType="LIBRARY_FINALModel.Book" Width="1.5" PointX="3" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIBRARY_FINALModel.DocGia" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIBRARY_FINALModel.NhanVienKho" Width="1.5" PointX="1.5" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIBRARY_FINALModel.NhanVienQuanLyDocGia" Width="1.5" PointX="7.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIBRARY_FINALModel.NhaXuatBan" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIBRARY_FINALModel.PhieuMuonTra" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIBRARY_FINALModel.PhieuNhap" Width="1.5" PointX="0.75" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIBRARY_FINALModel.PhieuPhat" Width="1.5" PointX="7.5" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIBRARY_FINALModel.TheDocGia" Width="1.5" PointX="5.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIBRARY_FINALModel.TheLoai" Width="1.5" PointX="0.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIBRARY_FINALModel.ThuThu" Width="1.5" PointX="3" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIBRARY_FINALModel.UserGroup" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIBRARY_FINALModel.User" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <AssociationConnector Association="LIBRARY_FINALModel.FK__Book__MaNXB__571DF1D5" ManuallyRouted="false" />
+        <AssociationConnector Association="LIBRARY_FINALModel.FK__Book__MaPN__5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="LIBRARY_FINALModel.FK__Book__MaTheLoai__5629CD9C" ManuallyRouted="false" />
+        <AssociationConnector Association="LIBRARY_FINALModel.FK__PhieuMuon__MaSac__628FA481" ManuallyRouted="false" />
+        <AssociationConnector Association="LIBRARY_FINALModel.FK__DocGia__Roles__5CD6CB2B" ManuallyRouted="false" />
+        <AssociationConnector Association="LIBRARY_FINALModel.FK__PhieuMuon__MaDoc__6383C8BA" ManuallyRouted="false" />
+        <AssociationConnector Association="LIBRARY_FINALModel.FK__TheDocGia__MaDoc__5FB337D6" ManuallyRouted="false" />
+        <AssociationConnector Association="LIBRARY_FINALModel.FK__PhieuNhap__MaNha__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="LIBRARY_FINALModel.FK__PhieuMuon__MaThu__6477ECF3" ManuallyRouted="false" />
+        <AssociationConnector Association="LIBRARY_FINALModel.FK__PhieuPhat__MaPhi__6754599E" ManuallyRouted="false" />
+        <AssociationConnector Association="LIBRARY_FINALModel.FK__PhieuPhat__MaThu__68487DD7" ManuallyRouted="false" />
+        <AssociationConnector Association="LIBRARY_FINALModel.FK__Users__Roles__6B24EA82" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

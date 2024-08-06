@@ -1,0 +1,86 @@
+﻿
+<link href="~/Areas/Admin/Content/css/SanPham/QLTheLoai.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "QLTheLoaiView";
+}
+
+<div class="Content">
+
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Hãy nhập tên sách bạn muốn tìm kiếm......">
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Mã thể loại</th>
+                <th>Tên thể loại</th>
+                <th>Chỉnh sửa</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var theloai in Model)
+            {
+                <tr>
+                    <td>@theloai.MaTheLoai</td>
+                    <td>@theloai.TenTheLoai</td>
+                    <td>
+                        <button class="delete-btn" data-matheloai="@theloai.MaTheLoai">Xóa</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a href="/Admin/SanPham/AddTheLoai" class=btn-add>Nhập sách mới</a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function removeDiacritics(text) {
+        return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+    $(document).ready(function () {
+        $("#searchInput").on("input", function () {
+            var searchText = removeDiacritics($(this).val().toLowerCase());
+            $("tbody tr").each(function () {
+                var cateName = removeDiacritics($(this).find("td:eq(1)").text().toLowerCase());
+                if (cateName.includes(searchText)) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $(".delete-btn").click(function () {
+            var maTheLoai = $(this).data("matheloai");
+
+            // Hiển thị hộp thoại xác nhận
+            var confirmDelete = confirm("Bạn có chắc chắn muốn xóa thể loại này?");
+
+            // Nếu người dùng nhấn OK trong hộp thoại xác nhận
+            if (confirmDelete) {
+                $.ajax({
+                    url: "/Admin/SanPham/DeleteTheLoai",
+                    method: "POST",
+                    data: { maTheLoai: maTheLoai },
+                    success: function (response) {
+                    success: function (response) {
+                        if (response.success) {
+                            // Xóa hàng khi xóa thành công
+                            $(this).closest("tr").remove();
+                        } else {
+                            alert("Xóa thất bại!");
+                        }
+                    },
+                    error: function () {
+                        alert("Đã xảy ra lỗi khi thực hiện yêu cầu xóa.");
+                    }
+                });
+            }
+        });
+    });
+</script>

@@ -1,0 +1,372 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LIBRARY_FINALModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Book">
+    <Key>
+      <PropertyRef Name="MaSach" />
+    </Key>
+    <Property Name="MaSach" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="TenSach" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MaTheLoai" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="MaNXB" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="TacGia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SoLuong" Type="Int32" />
+    <Property Name="NamXuatBan" Type="DateTime" Precision="0" />
+    <Property Name="HinhAnh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="MoTa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TrungBay" Type="Boolean" />
+    <Property Name="MaPN" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="LuotMuonTra" Type="Int32" />
+    <NavigationProperty Name="NhaXuatBan" Relationship="Self.FK__Book__MaNXB__44FF419A" FromRole="Book" ToRole="NhaXuatBan" />
+    <NavigationProperty Name="PhieuNhap" Relationship="Self.FK__Book__MaPN__45F365D3" FromRole="Book" ToRole="PhieuNhap" />
+    <NavigationProperty Name="TheLoai" Relationship="Self.FK__Book__MaTheLoai__440B1D61" FromRole="Book" ToRole="TheLoai" />
+    <NavigationProperty Name="PhieuMuonTras" Relationship="Self.FK__PhieuMuon__MaSac__5070F446" FromRole="Book" ToRole="PhieuMuonTra" />
+  </EntityType>
+  <EntityType Name="DocGia">
+    <Key>
+      <PropertyRef Name="MaDocGia" />
+    </Key>
+    <Property Name="MaDocGia" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="TenDocGia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NgaySinh" Type="DateTime" Precision="0" />
+    <Property Name="GioiTinh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="DiaChi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Passwords" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Roles" Type="Int32" />
+    <NavigationProperty Name="UserGroup" Relationship="Self.FK__DocGia__Roles__4AB81AF0" FromRole="DocGia" ToRole="UserGroup" />
+    <NavigationProperty Name="PhieuMuonTras" Relationship="Self.FK__PhieuMuon__MaDoc__5165187F" FromRole="DocGia" ToRole="PhieuMuonTra" />
+    <NavigationProperty Name="TheDocGias" Relationship="Self.FK__TheDocGia__MaDoc__4D94879B" FromRole="DocGia" ToRole="TheDocGia" />
+  </EntityType>
+  <EntityType Name="NhanVienKho">
+    <Key>
+      <PropertyRef Name="MaNhanVienKho" />
+    </Key>
+    <Property Name="MaNhanVienKho" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="TenNhanVienKho" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NgaySinh" Type="DateTime" Precision="0" />
+    <Property Name="GioiTinh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="DiaChi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="PhieuNhaps" Relationship="Self.FK__PhieuNhap__MaNha__412EB0B6" FromRole="NhanVienKho" ToRole="PhieuNhap" />
+  </EntityType>
+  <EntityType Name="NhanVienQuanLyDocGia">
+    <Key>
+      <PropertyRef Name="MaNhanVienQLDG" />
+    </Key>
+    <Property Name="MaNhanVienQLDG" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="TenNhanVienQLDG" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NgaySinh" Type="DateTime" Precision="0" />
+    <Property Name="GioiTinh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="DiaChi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="NhaXuatBan">
+    <Key>
+      <PropertyRef Name="MaNXB" />
+    </Key>
+    <Property Name="MaNXB" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="TenNXB" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DiaChi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Books" Relationship="Self.FK__Book__MaNXB__44FF419A" FromRole="NhaXuatBan" ToRole="Book" />
+  </EntityType>
+  <EntityType Name="PhieuMuonTra">
+    <Key>
+      <PropertyRef Name="MaPhieu" />
+    </Key>
+    <Property Name="MaPhieu" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="MaSach" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="MaDocGia" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="MaThuThu" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="NgayMuon" Type="DateTime" Precision="0" />
+    <Property Name="NgayTraDuKien" Type="DateTime" Precision="0" />
+    <Property Name="NgayTraThucTe" Type="DateTime" Precision="0" />
+    <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Book" Relationship="Self.FK__PhieuMuon__MaSac__5070F446" FromRole="PhieuMuonTra" ToRole="Book" />
+    <NavigationProperty Name="DocGia" Relationship="Self.FK__PhieuMuon__MaDoc__5165187F" FromRole="PhieuMuonTra" ToRole="DocGia" />
+    <NavigationProperty Name="ThuThu" Relationship="Self.FK__PhieuMuon__MaThu__52593CB8" FromRole="PhieuMuonTra" ToRole="ThuThu" />
+    <NavigationProperty Name="PhieuPhats" Relationship="Self.FK__PhieuPhat__MaPhi__5535A963" FromRole="PhieuMuonTra" ToRole="PhieuPhat" />
+  </EntityType>
+  <EntityType Name="PhieuNhap">
+    <Key>
+      <PropertyRef Name="MaPN" />
+    </Key>
+    <Property Name="MaPN" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="MaNhanVienKho" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="TenSach" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="SoLuong" Type="Int32" />
+    <Property Name="NgayNhap" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Books" Relationship="Self.FK__Book__MaPN__45F365D3" FromRole="PhieuNhap" ToRole="Book" />
+    <NavigationProperty Name="NhanVienKho" Relationship="Self.FK__PhieuNhap__MaNha__412EB0B6" FromRole="PhieuNhap" ToRole="NhanVienKho" />
+  </EntityType>
+  <EntityType Name="PhieuPhat">
+    <Key>
+      <PropertyRef Name="MaPhieuPhat" />
+    </Key>
+    <Property Name="MaPhieuPhat" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="MaPhieuMuon" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="MaThuThu" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="SoNgayTre" Type="Int32" />
+    <Property Name="NgayPhat" Type="DateTime" Precision="0" />
+    <Property Name="SoTienPhat" Type="Int32" />
+    <NavigationProperty Name="PhieuMuonTra" Relationship="Self.FK__PhieuPhat__MaPhi__5535A963" FromRole="PhieuPhat" ToRole="PhieuMuonTra" />
+    <NavigationProperty Name="ThuThu" Relationship="Self.FK__PhieuPhat__MaThu__5629CD9C" FromRole="PhieuPhat" ToRole="ThuThu" />
+  </EntityType>
+  <EntityType Name="TheDocGia">
+    <Key>
+      <PropertyRef Name="MaThe" />
+    </Key>
+    <Property Name="MaThe" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="MaDocGia" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="NgayCap" Type="DateTime" Precision="0" />
+    <Property Name="HanSuDung" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="DocGia" Relationship="Self.FK__TheDocGia__MaDoc__4D94879B" FromRole="TheDocGia" ToRole="DocGia" />
+  </EntityType>
+  <EntityType Name="TheLoai">
+    <Key>
+      <PropertyRef Name="MaTheLoai" />
+    </Key>
+    <Property Name="MaTheLoai" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="TenTheLoai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Books" Relationship="Self.FK__Book__MaTheLoai__440B1D61" FromRole="TheLoai" ToRole="Book" />
+  </EntityType>
+  <EntityType Name="ThuThu">
+    <Key>
+      <PropertyRef Name="MaThuThu" />
+    </Key>
+    <Property Name="MaThuThu" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="TenThuThu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NgaySinh" Type="DateTime" Precision="0" />
+    <Property Name="GioiTinh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="DiaChi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="PhieuMuonTras" Relationship="Self.FK__PhieuMuon__MaThu__52593CB8" FromRole="ThuThu" ToRole="PhieuMuonTra" />
+    <NavigationProperty Name="PhieuPhats" Relationship="Self.FK__PhieuPhat__MaThu__5629CD9C" FromRole="ThuThu" ToRole="PhieuPhat" />
+  </EntityType>
+  <EntityType Name="UserGroup">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="NameUS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="DocGias" Relationship="Self.FK__DocGia__Roles__4AB81AF0" FromRole="UserGroup" ToRole="DocGia" />
+    <NavigationProperty Name="Users" Relationship="Self.FK__Users__Roles__59063A47" FromRole="UserGroup" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Passwords" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Roles" Type="Int32" />
+    <NavigationProperty Name="UserGroup" Relationship="Self.FK__Users__Roles__59063A47" FromRole="Users" ToRole="UserGroup" />
+  </EntityType>
+  <Association Name="FK__Book__MaNXB__44FF419A">
+    <End Role="NhaXuatBan" Type="Self.NhaXuatBan" Multiplicity="0..1" />
+    <End Role="Book" Type="Self.Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NhaXuatBan">
+        <PropertyRef Name="MaNXB" />
+      </Principal>
+      <Dependent Role="Book">
+        <PropertyRef Name="MaNXB" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Book__MaPN__45F365D3">
+    <End Role="PhieuNhap" Type="Self.PhieuNhap" Multiplicity="0..1" />
+    <End Role="Book" Type="Self.Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PhieuNhap">
+        <PropertyRef Name="MaPN" />
+      </Principal>
+      <Dependent Role="Book">
+        <PropertyRef Name="MaPN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Book__MaTheLoai__440B1D61">
+    <End Role="TheLoai" Type="Self.TheLoai" Multiplicity="0..1" />
+    <End Role="Book" Type="Self.Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TheLoai">
+        <PropertyRef Name="MaTheLoai" />
+      </Principal>
+      <Dependent Role="Book">
+        <PropertyRef Name="MaTheLoai" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PhieuMuon__MaSac__5070F446">
+    <End Role="Book" Type="Self.Book" Multiplicity="0..1" />
+    <End Role="PhieuMuonTra" Type="Self.PhieuMuonTra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Book">
+        <PropertyRef Name="MaSach" />
+      </Principal>
+      <Dependent Role="PhieuMuonTra">
+        <PropertyRef Name="MaSach" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DocGia__Roles__4AB81AF0">
+    <End Role="UserGroup" Type="Self.UserGroup" Multiplicity="0..1" />
+    <End Role="DocGia" Type="Self.DocGia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserGroup">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="DocGia">
+        <PropertyRef Name="Roles" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PhieuMuon__MaDoc__5165187F">
+    <End Role="DocGia" Type="Self.DocGia" Multiplicity="0..1" />
+    <End Role="PhieuMuonTra" Type="Self.PhieuMuonTra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DocGia">
+        <PropertyRef Name="MaDocGia" />
+      </Principal>
+      <Dependent Role="PhieuMuonTra">
+        <PropertyRef Name="MaDocGia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TheDocGia__MaDoc__4D94879B">
+    <End Role="DocGia" Type="Self.DocGia" Multiplicity="0..1" />
+    <End Role="TheDocGia" Type="Self.TheDocGia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DocGia">
+        <PropertyRef Name="MaDocGia" />
+      </Principal>
+      <Dependent Role="TheDocGia">
+        <PropertyRef Name="MaDocGia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PhieuNhap__MaNha__412EB0B6">
+    <End Role="NhanVienKho" Type="Self.NhanVienKho" Multiplicity="0..1" />
+    <End Role="PhieuNhap" Type="Self.PhieuNhap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NhanVienKho">
+        <PropertyRef Name="MaNhanVienKho" />
+      </Principal>
+      <Dependent Role="PhieuNhap">
+        <PropertyRef Name="MaNhanVienKho" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PhieuMuon__MaThu__52593CB8">
+    <End Role="ThuThu" Type="Self.ThuThu" Multiplicity="0..1" />
+    <End Role="PhieuMuonTra" Type="Self.PhieuMuonTra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ThuThu">
+        <PropertyRef Name="MaThuThu" />
+      </Principal>
+      <Dependent Role="PhieuMuonTra">
+        <PropertyRef Name="MaThuThu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PhieuPhat__MaPhi__5535A963">
+    <End Role="PhieuMuonTra" Type="Self.PhieuMuonTra" Multiplicity="0..1" />
+    <End Role="PhieuPhat" Type="Self.PhieuPhat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PhieuMuonTra">
+        <PropertyRef Name="MaPhieu" />
+      </Principal>
+      <Dependent Role="PhieuPhat">
+        <PropertyRef Name="MaPhieuMuon" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PhieuPhat__MaThu__5629CD9C">
+    <End Role="ThuThu" Type="Self.ThuThu" Multiplicity="0..1" />
+    <End Role="PhieuPhat" Type="Self.PhieuPhat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ThuThu">
+        <PropertyRef Name="MaThuThu" />
+      </Principal>
+      <Dependent Role="PhieuPhat">
+        <PropertyRef Name="MaThuThu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Users__Roles__59063A47">
+    <End Role="UserGroup" Type="Self.UserGroup" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserGroup">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="Roles" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="LIBRARY_FINALEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Books" EntityType="Self.Book" />
+    <EntitySet Name="DocGias" EntityType="Self.DocGia" />
+    <EntitySet Name="NhanVienKhoes" EntityType="Self.NhanVienKho" />
+    <EntitySet Name="NhanVienQuanLyDocGias" EntityType="Self.NhanVienQuanLyDocGia" />
+    <EntitySet Name="NhaXuatBans" EntityType="Self.NhaXuatBan" />
+    <EntitySet Name="PhieuMuonTras" EntityType="Self.PhieuMuonTra" />
+    <EntitySet Name="PhieuNhaps" EntityType="Self.PhieuNhap" />
+    <EntitySet Name="PhieuPhats" EntityType="Self.PhieuPhat" />
+    <EntitySet Name="TheDocGias" EntityType="Self.TheDocGia" />
+    <EntitySet Name="TheLoais" EntityType="Self.TheLoai" />
+    <EntitySet Name="ThuThus" EntityType="Self.ThuThu" />
+    <EntitySet Name="UserGroups" EntityType="Self.UserGroup" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK__Book__MaNXB__44FF419A" Association="Self.FK__Book__MaNXB__44FF419A">
+      <End Role="NhaXuatBan" EntitySet="NhaXuatBans" />
+      <End Role="Book" EntitySet="Books" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Book__MaPN__45F365D3" Association="Self.FK__Book__MaPN__45F365D3">
+      <End Role="PhieuNhap" EntitySet="PhieuNhaps" />
+      <End Role="Book" EntitySet="Books" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Book__MaTheLoai__440B1D61" Association="Self.FK__Book__MaTheLoai__440B1D61">
+      <End Role="TheLoai" EntitySet="TheLoais" />
+      <End Role="Book" EntitySet="Books" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PhieuMuon__MaSac__5070F446" Association="Self.FK__PhieuMuon__MaSac__5070F446">
+      <End Role="Book" EntitySet="Books" />
+      <End Role="PhieuMuonTra" EntitySet="PhieuMuonTras" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DocGia__Roles__4AB81AF0" Association="Self.FK__DocGia__Roles__4AB81AF0">
+      <End Role="UserGroup" EntitySet="UserGroups" />
+      <End Role="DocGia" EntitySet="DocGias" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PhieuMuon__MaDoc__5165187F" Association="Self.FK__PhieuMuon__MaDoc__5165187F">
+      <End Role="DocGia" EntitySet="DocGias" />
+      <End Role="PhieuMuonTra" EntitySet="PhieuMuonTras" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TheDocGia__MaDoc__4D94879B" Association="Self.FK__TheDocGia__MaDoc__4D94879B">
+      <End Role="DocGia" EntitySet="DocGias" />
+      <End Role="TheDocGia" EntitySet="TheDocGias" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PhieuNhap__MaNha__412EB0B6" Association="Self.FK__PhieuNhap__MaNha__412EB0B6">
+      <End Role="NhanVienKho" EntitySet="NhanVienKhoes" />
+      <End Role="PhieuNhap" EntitySet="PhieuNhaps" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PhieuMuon__MaThu__52593CB8" Association="Self.FK__PhieuMuon__MaThu__52593CB8">
+      <End Role="ThuThu" EntitySet="ThuThus" />
+      <End Role="PhieuMuonTra" EntitySet="PhieuMuonTras" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PhieuPhat__MaPhi__5535A963" Association="Self.FK__PhieuPhat__MaPhi__5535A963">
+      <End Role="PhieuMuonTra" EntitySet="PhieuMuonTras" />
+      <End Role="PhieuPhat" EntitySet="PhieuPhats" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PhieuPhat__MaThu__5629CD9C" Association="Self.FK__PhieuPhat__MaThu__5629CD9C">
+      <End Role="ThuThu" EntitySet="ThuThus" />
+      <End Role="PhieuPhat" EntitySet="PhieuPhats" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Users__Roles__59063A47" Association="Self.FK__Users__Roles__59063A47">
+      <End Role="UserGroup" EntitySet="UserGroups" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

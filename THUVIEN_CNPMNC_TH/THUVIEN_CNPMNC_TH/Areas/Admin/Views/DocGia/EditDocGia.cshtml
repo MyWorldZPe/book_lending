@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "EditDocGia";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+@model THUVIEN_CNPMNC_TH.Models.DocGia
+<link href="~/Areas/Admin/Content/css/DocGia/EditDG.css" rel="stylesheet" />
+
+
+<div class="container">
+    <h1>CHỈNH SỬA ĐỘC GIẢ</h1>
+    <form method="post" action="/Admin/DocGia/SaveEdit">
+        <input type="hidden" name="MaDocGia" value="@Model.MaDocGia" />
+        <div>
+            <label for="TenDocGia">Tên DG:</label>
+            <input type="text" name="TenDocGia" value="@Model.TenDocGia" />
+        </div>
+        <div>
+            <label for="GioiTinh">Giới tính:</label>
+            <select name="GioiTinh" id="GioiTinhSelect">
+                <option value="Nam">Nam</option>
+                <option value="Nữ">Nữ</option>
+            </select>
+        </div>
+        <div>
+            <label for="SDT">Số điện thoại:</label>
+            <input type="text" name="SoDienThoai" value="@Model.SoDienThoai" />       
+        </div>
+        <div>
+            <label for="NgaySinh">Ngày sinh:</label>
+            <input type="text" id="NgaySinh" name="NgaySinh" value="@Model.NgaySinh" />
+        </div>
+        <div>
+            <label for="DiaChi">Địa chỉ :</label>
+            <input type="text" name="DiaChi" value="@Model.DiaChi" />
+        </div>
+        <div>
+            <input class="save" type="submit" value="Save" />
+            <a class="cancel" href="/Admin/DocGia/QLDocGia">Cancel</a>
+        </div>
+    </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+    $(document).ready(function() {
+        var gioiTinhValue = "@Model.GioiTinh"; // Giá trị mô hình
+
+        // Đặt giá trị mặc định cho trường chọn dựa trên giá trị mô hình
+        $("#GioiTinhSelect").val(gioiTinhValue);
+    });
+</script>
+
+
+
+

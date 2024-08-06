@@ -1,0 +1,62 @@
+﻿@model THUVIEN_CNPMNC_TH.Models.TheDocGia
+@{
+    ViewBag.Title = "Thêm Thẻ Độc Giả";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Areas/Admin/Content/css/TheDocGia/ThemTDG.css" rel="stylesheet" />
+<div class="container">
+    <h1>THÊM THẺ ĐỘC GIẢ</h1>
+    @using (Html.BeginForm("LuuTheDocGia", "TheDocGia", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MaDocGia, "Tên độc giả:", htmlAttributes: new { @class = "control-label" })
+            @Html.DropDownList("MaDocGia", ViewBag.ListTenDocGia as SelectList, "-- Chọn độc giả --", new { @class = "form-control", id = "TenDocGiaDropdown" })
+            <span id="tenDocGiaError" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HanSuDung, "Hạn sử dụng:", htmlAttributes: new { @class = "control-label" })
+            @Html.DropDownList("HanSuDungOption", new SelectList(new List<SelectListItem>
+            {
+                new SelectListItem { Text = "3 tháng", Value = "3" },
+                new SelectListItem { Text = "6 tháng", Value = "6" },
+                new SelectListItem { Text = "1 năm", Value = "12" }
+            }, "Value", "Text"), "-- Chọn thời gian hạn sử dụng --", new { @class = "form-control", id = "hanSuDung" })
+            <span id="hanSuDungError" class="text-danger"></span>
+        </div>
+
+        <input type="submit" value="Thêm" class="btn btn-primary" />
+    }
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("form").submit(function (event) {
+            var isValid = true;
+
+            // Kiểm tra Tên độc giả
+            if ($("#TenDocGiaDropdown").val() === "") {
+                $("#tenDocGiaError").text("Vui lòng chọn Tên độc giả.").show();
+                isValid = false;
+            } else {
+                $("#tenDocGiaError").text("").hide();
+            }
+            // Kiểm tra Hạn sử dụng
+            if ($("#hanSuDung").val() === "") {
+                $("#hanSuDungError").text("Vui lòng chọn Hạn sử dụng.").show();
+                isValid = false;
+            } else {
+                $("#hanSuDungError").text("").hide();
+            }
+
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    });
+</script>

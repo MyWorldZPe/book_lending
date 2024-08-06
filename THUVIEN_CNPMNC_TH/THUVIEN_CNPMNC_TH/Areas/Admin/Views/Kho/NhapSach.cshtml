@@ -1,0 +1,104 @@
+﻿@model THUVIEN_CNPMNC_TH.Models.PhieuNhap
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <link href="~/Areas/Admin/Content/css/Kho/NhapSach.css" rel="stylesheet" />
+
+    <div class="container">
+
+        <h1>NHẬP SÁCH MỚI</h1>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <!-- MaPN không cần nhập, để nó tự động tạo -->
+        @Html.HiddenFor(model => model.MaPN)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MaNhanVienKho, "Mã Nhân Viên Kho", htmlAttributes: new { @class = "control-label col-md-10" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.MaNhanVienKho, ViewBag.TenNhanVienKho as SelectList, "-- Chọn tên nhân viên kho--", new { @class = "form-control", id = "TenNhanVienKhoDropdown" })
+                @Html.ValidationMessageFor(model => model.MaNhanVienKho, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TenSach, "Tên Sách", htmlAttributes: new { @class = "control-label col-md-10" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TenSach, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TenSach, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SoLuong, "Số Lượng", htmlAttributes: new { @class = "control-label col-md-10" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SoLuong, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SoLuong, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NgayNhap, "Ngày Nhập", htmlAttributes: new { @class = "control-label col-md-10" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NgayNhap, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                @Html.ValidationMessageFor(model => model.NgayNhap, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+<a href="/Admin/Kho/QLKho" class="btn-back">Trở về</a>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("form").submit(function (event) {
+            var isValid = true;
+
+            // Kiểm tra Mã Nhân Viên Kho
+            if ($("#TenNhanVienKhoDropdown").val() === "") {
+                $("#TenNhanVienKhoDropdown").next('.text-danger').text("Vui lòng chọn Mã Nhân Viên Kho.").show();
+                isValid = false;
+            } else {
+                $("#TenNhanVienKhoDropdown").next('.text-danger').text("").hide();
+            }
+
+            // Kiểm tra Tên Sách
+            if ($("#TenSach").val().trim() === "") {
+                $("#TenSach").next('.text-danger').text("Vui lòng nhập Tên Sách.").show();
+                isValid = false;
+            } else {
+                $("#TenSach").next('.text-danger').text("").hide();
+            }
+
+            // Kiểm tra Số Lượng
+            var soLuong = parseInt($("#SoLuong").val());
+            if (isNaN(soLuong) || soLuong < 0) {
+                $("#SoLuong").siblings(".text-danger").text("Số lượng không được nhỏ hơn 0.").show();
+                isValid = false;
+            } else {
+                $("#SoLuong").siblings(".text-danger").text("").hide();
+            }
+
+
+            // Kiểm tra Ngày Nhập
+            if ($("#NgayNhap").val().trim() === "") {
+                $("#NgayNhap").next('.text-danger').text("Vui lòng nhập Ngày Nhập.").show();
+                isValid = false;
+            } else {
+                $("#NgayNhap").next('.text-danger').text("").hide();
+            }
+
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    });
+</script>
